@@ -5,6 +5,7 @@ import { AppService } from './app.service.js';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostsModule } from './posts/posts.module.js';
 import{ConfigModule} from '@nestjs/config'
+import { AuthModule } from './auth/auth.module.js';
 
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
@@ -33,7 +34,8 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
         synchronize: true, //根据实体自动创建数据库表， 生产环境建议关闭
 
     }),
-    PostsModule
+    PostsModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
