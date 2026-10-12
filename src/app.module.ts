@@ -6,7 +6,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostsModule } from './posts/posts.module.js';
 import{ConfigModule} from '@nestjs/config'
 import { AuthModule } from './auth/auth.module.js';
-
+import JwtAuthStrategy from './jwt-auth/jwt-auth.strategy.js'
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './jwt-auth/jwt-auth.guard.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -38,6 +40,9 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     AuthModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,JwtAuthStrategy,{
+    provide:APP_GUARD,
+    useClass:JwtAuthGuard
+  }],
 })
 export class AppModule {}

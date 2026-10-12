@@ -10,20 +10,17 @@ export interface JwtPayload {
 @Injectable()
 // 验证请求头中的token
 export default class JwtAuthStrategy extends PassportStrategy(Strategy, 'jwt') {
-  constructor() {
+  constructor(){
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: false,
-      secretOrKey: jwtConstants.secret,
-    });
+      jwtFromRequest:ExtractJwt.fromAuthHeaderAsBearerToken(),
+      secretOrKey:jwtConstants.secret
+    })
   }
-
-  async validate(payload: JwtPayload) {
-    console.log(payload.username);
-    const { username } = payload;
+  async validate(payLoad:JwtPayload) {
+    const {username} = payLoad
     return {
-      username,
-    };
+      username
+    }
   }
 }
 
